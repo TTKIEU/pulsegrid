@@ -13,12 +13,12 @@ import jakarta.persistence.Table;
 //Translates name -> SQL name VARCHAR()
 @Entity
 @Table(name="monitored_services")
-
 public class MonitoredService{
     // Primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     //Mapping is such that Obj -> Row
     @Column(nullable = false)
     private String name;
