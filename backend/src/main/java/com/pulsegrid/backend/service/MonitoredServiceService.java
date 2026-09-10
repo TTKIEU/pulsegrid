@@ -1,10 +1,11 @@
 package com.pulsegrid.backend.service;
 
-import com.pulsegrid.backend.model.MonitoredService;
-import com.pulsegrid.backend.repository.MonitoredServiceRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.pulsegrid.backend.model.MonitoredService;
+import com.pulsegrid.backend.repository.MonitoredServiceRepository;
 
 @Service
 public class MonitoredServiceService{
@@ -20,5 +21,11 @@ public class MonitoredServiceService{
     }
     public MonitoredService createService(MonitoredService service){
         return repository.save(service);
+    }
+    public MonitoredService getServiceById(Long id){
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Service Not Found"));
+    }
+    public void deleteService(Long id){
+        repository.deleteById(id);
     }
 }
