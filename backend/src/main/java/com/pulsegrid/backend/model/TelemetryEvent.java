@@ -1,12 +1,28 @@
 package com.pulsegrid.backend.model;
 
-import jakarta.persistence.*;
 import java.time.Instant;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+//Create a SQL table called telemetry events
 @Entity
 @Table(name = "telemetry_events")
 public class TelemetryEvent {
 
+    /**
+     * Id = object id
+     * latency = latency
+     * statusCode = is it online
+     * cpuUsage = How much cpu %
+     * memoryUsage = memory %
+     * timestamp = last checked; stale data?
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,12 +37,7 @@ public class TelemetryEvent {
 
     private Instant timestamp;
 
-    //many telemetry rows can point to one monitored service
-    //service_id is pointing to monitored_services.id
-    // id | latency | status | cpu | memory | service_id
-    // -------------------------------------------------
-    // 1  | 52.0    | 200    | 42  | 61     | 3
-    // i.e. this telemetry record belongs to service 3
+    //service id is a foreign key pointing to monitored service #
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
     private MonitoredService service;
